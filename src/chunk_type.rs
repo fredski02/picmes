@@ -116,16 +116,12 @@ impl ChunkType {
     }
 
     pub fn is_valid(&self) -> bool {
-        if self.is_critical()
-            && !self.is_public()
-            && self.is_reserved_bit_valid()
-            && self.is_safe_to_copy()
-        {
-            return true;
-        }
-        false
+        let valid_chars = self
+            .0
+            .iter()
+            .all(|&b| (b >= b'a' && b <= b'z' || (b >= b'A' && b <= b'Z')));
+        valid_chars && self.is_reserved_bit_valid()
     }
-
 }
 
 #[cfg(test)]
@@ -215,7 +211,6 @@ mod tests {
     #[test]
     pub fn test_chunk_type_string() {
         let chunk = ChunkType::from_str("RuSt").unwrap();
-        println!("{:?}", chunk.to_string());
         assert_eq!(&chunk.to_string(), "RuSt");
     }
 

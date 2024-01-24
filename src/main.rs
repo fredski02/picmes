@@ -2,6 +2,7 @@ use std::str::FromStr;
 
 use chunk::Chunk;
 use chunk_type::ChunkType;
+use png::Png;
 
 mod args;
 mod chunk;
@@ -13,9 +14,34 @@ pub type Error = Box<dyn std::error::Error>;
 pub type Result<T> = std::result::Result<T, Error>;
 
 fn main() -> Result<()> {
-  
-    // let res = std::str::from_utf8(&[0, 0, 0, 50, 82, 117, 83, 116, 84, 104, 105, 115, 32, 105, 115, 32, 119, 104, 101, 114, 101, 32, 121, 111, 117, 114, 32, 115, 101, 99, 114, 101, 116, 32, 109, 101, 115, 115, 97, 103, 101, 32, 119, 105, 108, 108, 32, 98, 101, 33, 0, 0, 0, 4]);
-    // println!("{:?}", res);
+
     Result::Ok(())
     // todo!()
 }
+
+// let chunk_data = vec![chunk_from_strings("FrSt", "I am the first chunk")
+//     .unwrap()];
+// let chunk_data = vec![chunk_from_strings("miDl", "I am another chunk")
+//     .unwrap()];
+//     let chunk_data = vec![chunk_from_strings("LASt", "I am the last chunk")
+//         .unwrap(), chunk_from_strings("miDl", "I am another chunk").unwrap()];
+
+//     let chunk_bytes: Vec<u8> = chunk_data
+//         .into_iter()
+//         .flat_map(|chunk| chunk.as_bytes())
+//         .collect();
+
+//     let bytes: Vec<u8> = Png::STANDARD_HEADER
+//         .iter()
+//         .chain(chunk_bytes.iter())
+//         .copied()
+//         .collect();
+
+//     let chunk = Png::try_from(bytes.as_ref());
+
+// fn chunk_from_strings(chunk_type: &str, data: &str) -> Result<Chunk> {
+//     let chunk_type = ChunkType::from_str(chunk_type)?;
+//     let data: Vec<u8> = data.bytes().collect();
+
+//     Ok(Chunk::new(chunk_type, data))
+// }

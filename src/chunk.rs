@@ -114,9 +114,8 @@ impl TryFrom<&[u8]> for Chunk {
 
         let (data_length, rest) = value.split_at(Chunk::LEN_DATA_LENGTH);
         let data_length = u32::from_be_bytes(data_length.try_into()?) as usize;
-        let (type_slice, rest) = rest.split_at(Chunk::CHUNK_TYPE_LENGTH);
-        let (data_slice, crc_slice) = rest.split_at(data_length);
 
+        let (type_slice, rest) = rest.split_at(Chunk::CHUNK_TYPE_LENGTH);
         let chunk_type_b: [u8; 4] = type_slice.try_into()?;
         let chunk_type = ChunkType::try_from(chunk_type_b)?;
 
@@ -124,6 +123,11 @@ impl TryFrom<&[u8]> for Chunk {
             return Err(Box::new(ChunkError::InvalidChunkType));
         }
 
+        // good up to now
+        let (data_slice, rest) = rest.split_at(data_length);
+        let (crc_slice, _) = rest.split_at(Chunk::CRC_LENGTH);
+
+     
         let new_chunk = Self {
             chunk_type,
             chunk_data: data_slice.into(),
