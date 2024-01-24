@@ -30,7 +30,7 @@ impl Display for ChunkTypeError {
 // ---------------  ChunkType ------------
 // ---------------------------------------
 #[derive(PartialEq, Eq, Debug)]
-struct ChunkType([u8; 4]);
+pub struct ChunkType(pub [u8; 4]);
 
 impl Display for ChunkType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
